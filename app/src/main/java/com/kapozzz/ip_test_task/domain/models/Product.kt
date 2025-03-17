@@ -1,4 +1,4 @@
-package com.kapozzz.ip_test_task.domain
+package com.kapozzz.ip_test_task.domain.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

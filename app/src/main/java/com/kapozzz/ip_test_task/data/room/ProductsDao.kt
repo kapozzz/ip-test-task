@@ -1,8 +1,8 @@
-package com.kapozzz.ip_test_task.data
+package com.kapozzz.ip_test_task.data.room
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.kapozzz.ip_test_task.domain.Product
+import com.kapozzz.ip_test_task.domain.models.Product
 import kotlinx.coroutines.flow.Flow
 
 @Dao

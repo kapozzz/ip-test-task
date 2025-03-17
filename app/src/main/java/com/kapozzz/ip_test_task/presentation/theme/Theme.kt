@@ -1,4 +1,4 @@
-package com.kapozzz.ip_test_task.ui.theme
+package com.kapozzz.ip_test_task.presentation.theme
 
 import android.app.Activity
 import android.os.Build
