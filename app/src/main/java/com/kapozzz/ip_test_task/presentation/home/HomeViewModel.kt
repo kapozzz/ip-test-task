@@ -3,9 +3,12 @@ package com.kapozzz.ip_test_task.presentation.home
 import androidx.lifecycle.viewModelScope
 import com.kapozzz.ip_test_task.core.BaseViewModel
 import com.kapozzz.ip_test_task.domain.models.Product
+import com.kapozzz.ip_test_task.domain.models.mockProducts
+import com.kapozzz.ip_test_task.domain.repositories.PreferencesRepository
 import com.kapozzz.ip_test_task.domain.repositories.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -14,10 +17,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val productsRepository: ProductsRepository
+    private val productsRepository: ProductsRepository,
+    private val preferencesRepository: PreferencesRepository
 ) : BaseViewModel<HomeEvent, HomeState, HomeEffect>() {
 
     init {
+        useMockDataIfNeed()
         observeItems()
     }
 
@@ -28,11 +33,13 @@ class HomeViewModel @Inject constructor(
     override fun handleEvent(event: HomeEvent) {
         when (event) {
             is HomeEvent.SearchQueryChanged -> handleChangeQueryAction(event.query)
+
             is HomeEvent.OnOpenEditClick -> handleOnOpenEditClick(event.product)
-            is HomeEvent.OnConfirmDeleteClick -> handleOnAcceptDeleteClick()
             is HomeEvent.OnSaveEditClick -> handleOnSaveEditClick(event.count)
             HomeEvent.OnDismissEditClick -> handleOnDismissEditClick()
-            is HomeEvent.OnOpenDeleteClick -> handleOnAcceptDeleteClick(event.product)
+
+            is HomeEvent.OnOpenDeleteClick -> handleOnOpenDeleteClick(event.product)
+            is HomeEvent.OnConfirmDeleteClick -> handleOnConfirmDeleteClick()
             HomeEvent.OnDismissDeleteCLick -> handleOnDismissDeleteCLick()
         }
     }
@@ -49,7 +56,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun handleOnAcceptDeleteClick(product: Product) {
+    private fun handleOnOpenDeleteClick(product: Product) {
         setState { currentState.copy(interactItem = product, isDeleteDialogVisible = true) }
     }
 
@@ -57,7 +64,7 @@ class HomeViewModel @Inject constructor(
         setState { currentState.copy(interactItem = null, isDeleteDialogVisible = false) }
     }
 
-    private fun handleOnAcceptDeleteClick() {
+    private fun handleOnConfirmDeleteClick() {
         viewModelScope.launch(Dispatchers.IO) {
             currentState.interactItem?.let { productsRepository.deleteProduct(it.id) }
             withContext(Dispatchers.Main) {
@@ -101,6 +108,15 @@ class HomeViewModel @Inject constructor(
     private fun handleChangeQueryAction(query: String) {
         setState { copy(query = query) }
         queryFlow.value = currentState.query
+    }
+
+    private fun useMockDataIfNeed() {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (preferencesRepository.isFirstStart()) {
+                productsRepository.insertProducts(mockProducts)
+                preferencesRepository.setFirstStart(false)
+            }
+        }
     }
 
 }

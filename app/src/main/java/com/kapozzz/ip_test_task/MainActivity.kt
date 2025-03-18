@@ -19,13 +19,11 @@ class MainActivity @Inject constructor() : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val mainViewModel: MainViewModel = hiltViewModel()
             IptesttaskTheme {
                 val viewModel: HomeViewModel = hiltViewModel()
                 HomeScreen(state = viewModel.uiState.collectAsState().value, setEvent = viewModel::setEvent)
             }
         }
     }
-
 
 }
