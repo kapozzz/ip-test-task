@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ip-test-task</string>
+    <string name="home_products_top_bar_title">Список товаров</string>
+    <string name="home_product_card_on_storage">На складе</string>
 </resources>

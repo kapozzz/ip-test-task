@@ -9,12 +9,12 @@ import kotlinx.coroutines.flow.Flow
 interface ProductsDao {
 
     @Query("SELECT * FROM Products")
-    suspend fun getAllProducts(): Flow<Product>
+    fun getAllProducts(): Flow<List<Product>>
 
     @Query("SELECT * FROM Products WHERE id = :id")
     suspend fun getProductById(id: String): Product
 
     @Query("SELECT * FROM Products WHERE title = :title")
-    suspend fun getProductByTitle(title: String): Flow<Product>
+    fun getProductByTitle(title: String): Flow<Product>
 
 }

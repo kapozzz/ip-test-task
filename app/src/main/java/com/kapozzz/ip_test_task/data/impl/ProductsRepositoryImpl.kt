@@ -10,7 +10,7 @@ class ProductsRepositoryImpl @Inject constructor(
     private val productsDao: ProductsDao
 ): ProductsRepository {
 
-    override suspend fun getAllProducts(): Flow<Product> = productsDao.getAllProducts()
+    override suspend fun getAllProducts(): Flow<List<Product>> = productsDao.getAllProducts()
 
     override suspend fun getProductById(id: String): Product = productsDao.getProductById(id)
 
