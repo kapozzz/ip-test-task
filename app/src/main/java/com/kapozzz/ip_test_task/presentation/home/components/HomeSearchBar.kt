@@ -19,7 +19,7 @@ fun HomeSearchBar(
 ) {
     TextField(
         value = query,
-        onValueChange = { onSearch(it.trim()) },
+        onValueChange = { onSearch(it) },
         leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = null) },
         placeholder = { Text("Поиск товаров") },
         modifier = modifier.fillMaxWidth()
