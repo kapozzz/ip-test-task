@@ -22,7 +22,6 @@ fun HomeScreen(
     state: HomeState,
     setEvent: (HomeEvent) -> Unit
 ) {
-
     Box(modifier = Modifier.fillMaxSize()) {
         Content(
             state = state,
@@ -30,7 +29,6 @@ fun HomeScreen(
             modifier = Modifier.fillMaxSize()
         )
     }
-
 }
 
 @OptIn(ExperimentalFoundationApi::class)

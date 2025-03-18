@@ -2,4 +2,9 @@
     <string name="app_name">ip-test-task</string>
     <string name="home_products_top_bar_title">Список товаров</string>
     <string name="home_product_card_on_storage">На складе</string>
+    <string name="home_counter_title">Изменить количество</string>
+    <string name="home_counter_minus">−</string>
+    <string name="home_counter_plus">+</string>
+    <string name="home_counter_accept">Принять</string>
+    <string name="home_counter_dismiss">Отмена</string>
 </resources>

@@ -47,10 +47,7 @@ class HomeViewModel @Inject constructor(
         products: List<Product>,
         query: String
     ) = products.filter { product ->
-        product.title.contains(
-            query,
-            ignoreCase = true
-        ) || product.labels.any { label -> label.contains(query) }
+        product.title.contains(query)
     }
 
     private suspend fun handleProducts(products: List<Product>) {

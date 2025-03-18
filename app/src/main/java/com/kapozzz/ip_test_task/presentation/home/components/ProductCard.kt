@@ -1,7 +1,6 @@
 package com.kapozzz.ip_test_task.presentation.home.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,11 +18,12 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,17 +43,27 @@ fun ProductCard(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(200.dp)
+            .height(164.dp)
+            .shadow(
+                elevation = 2.dp,
+                shape = RoundedCornerShape(8.dp),
+                clip = true
+            )
             .background(MaterialTheme.colorScheme.surfaceContainer)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            ProductTitle(product, onEditClick, onDeleteClick)
-            ProductLabels(product)
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                ProductTitle(product, onEditClick, onDeleteClick)
+                ProductLabels(product)
+            }
             ProductDescription(product)
         }
     }
@@ -108,31 +118,13 @@ private fun ProductLabels(product: Product) {
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         product.labels.forEach { label ->
-            ProductLabel(label)
-        }
-    }
-}
-
-@Composable
-private fun ProductLabel(
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier
-            .clip(RoundedCornerShape(6.dp))
-            .border(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.outline,
-                shape = RoundedCornerShape(6.dp)
+            SuggestionChip(
+                onClick = { /* ignore */ },
+                enabled = false,
+                label = { Text(text = label) },
+                modifier = Modifier.height(32.dp)
             )
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(4.dp)
-        )
+        }
     }
 }
 
@@ -190,13 +182,7 @@ private fun ProductCardPreview() {
                 "Аксессуары",
                 "Аксессуары",
                 "Телефон",
-                "Apple",
-                "Аксессуары",
-                "Аксессуары",
-                "Телефон",
-                "Apple",
-                "Аксессуары",
-                "Аксессуары"
+                "Apple"
             )
         ), {}, {})
     }
