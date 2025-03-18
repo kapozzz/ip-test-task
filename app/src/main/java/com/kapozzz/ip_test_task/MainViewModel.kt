@@ -1,6 +1,5 @@
 package com.kapozzz.ip_test_task
 
-import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kapozzz.ip_test_task.domain.models.mockProducts
@@ -25,6 +24,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             if (preferencesRepository.isFirstStart()) {
                 productsRepository.insertProducts(mockProducts)
+                preferencesRepository.setFirstStart(false)
             }
         }
     }

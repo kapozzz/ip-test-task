@@ -7,4 +7,8 @@
     <string name="home_counter_plus">+</string>
     <string name="home_counter_accept">Принять</string>
     <string name="home_counter_dismiss">Отмена</string>
+    <string name="home_search_bar_hint">Поиск товаров</string>
+    <string name="home_empty_products_title">Ничего :(</string>
+    <string name="home_delete_dialog_body">Вы действительно хотите удалить выбранный товар?</string>
+    <string name="home_delete_dialog_title">Удаление товара</string>
 </resources>

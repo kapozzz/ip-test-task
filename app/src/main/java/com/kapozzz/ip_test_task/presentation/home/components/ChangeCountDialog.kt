@@ -35,6 +35,7 @@ fun ChangeCountDialog(
 
     AlertDialog(
         onDismissRequest = { onDismiss() },
+        containerColor = MaterialTheme.colorScheme.background,
         modifier = modifier,
         title = { Text(text = stringResource(R.string.home_counter_title)) },
         text = {

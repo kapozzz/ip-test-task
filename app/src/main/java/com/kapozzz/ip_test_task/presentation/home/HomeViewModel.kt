@@ -28,6 +28,12 @@ class HomeViewModel @Inject constructor(
     override fun handleEvent(event: HomeEvent) {
         when (event) {
             is HomeEvent.SearchQueryChanged -> handleChangeQueryAction(event.query)
+            is HomeEvent.OnOpenEditClick -> handleOnOpenEditClick(event.product)
+            is HomeEvent.OnConfirmDeleteClick -> handleOnAcceptDeleteClick()
+            is HomeEvent.OnSaveEditClick -> handleOnSaveEditClick(event.count)
+            HomeEvent.OnDismissEditClick -> handleOnDismissEditClick()
+            is HomeEvent.OnOpenDeleteClick -> handleOnAcceptDeleteClick(event.product)
+            HomeEvent.OnDismissDeleteCLick -> handleOnDismissDeleteCLick()
         }
     }
 
@@ -43,11 +49,47 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun handleOnAcceptDeleteClick(product: Product) {
+        setState { currentState.copy(interactItem = product, isDeleteDialogVisible = true) }
+    }
+
+    private fun handleOnDismissDeleteCLick() {
+        setState { currentState.copy(interactItem = null, isDeleteDialogVisible = false) }
+    }
+
+    private fun handleOnAcceptDeleteClick() {
+        viewModelScope.launch(Dispatchers.IO) {
+            currentState.interactItem?.let { productsRepository.deleteProduct(it.id) }
+            withContext(Dispatchers.Main) {
+                setState { currentState.copy(interactItem = null, isDeleteDialogVisible = false) }
+            }
+        }
+    }
+
+    private fun handleOnSaveEditClick(count: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            currentState.interactItem?.let {
+                productsRepository.insertProducts(listOf(it.copy(count = count)))
+            }
+            withContext(Dispatchers.Main) {
+                setState { currentState.copy(interactItem = null, isEditDialogVisible = false) }
+            }
+        }
+    }
+
+    private fun handleOnDismissEditClick() {
+        setState { currentState.copy(interactItem = null, isEditDialogVisible = false) }
+    }
+
+    private fun handleOnOpenEditClick(product: Product) {
+        setState { copy(interactItem = product, isEditDialogVisible = true) }
+    }
+
     private fun filterProductsByQuery(
         products: List<Product>,
         query: String
     ) = products.filter { product ->
-        product.title.contains(query)
+        product.title.lowercase().contains(query.lowercase())
     }
 
     private suspend fun handleProducts(products: List<Product>) {

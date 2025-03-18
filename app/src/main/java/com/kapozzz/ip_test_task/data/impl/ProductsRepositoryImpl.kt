@@ -18,4 +18,8 @@ class ProductsRepositoryImpl @Inject constructor(
 
     override suspend fun insertProducts(products: List<Product>) = productsDao.insertProducts(products)
 
+    override suspend fun updateProduct(product: Product) = productsDao.updateProduct(product)
+
+    override suspend fun deleteProduct(id: String) = productsDao.deleteProduct(id)
+
 }

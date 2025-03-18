@@ -15,14 +15,16 @@ private val DarkColorScheme = darkColorScheme(
     primary = Color.White,
     background = Color.Black,
     secondary = Color.Black,
-    surfaceContainer = Color.LightGray
+    surfaceContainer = Color.Black,
+    tertiaryContainer = Color.DarkGray
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Color.Black,
     background = Color.White,
     secondary = Color.Gray,
-    surfaceContainer = Color.White
+    surfaceContainer = Color.White,
+    tertiaryContainer = Color.White
 )
 
 @Composable
