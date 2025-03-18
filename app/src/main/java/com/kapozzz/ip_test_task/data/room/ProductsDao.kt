@@ -1,6 +1,8 @@
 package com.kapozzz.ip_test_task.data.room
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.kapozzz.ip_test_task.domain.models.Product
 import kotlinx.coroutines.flow.Flow
@@ -16,5 +18,8 @@ interface ProductsDao {
 
     @Query("SELECT * FROM Products WHERE title = :title")
     fun getProductByTitle(title: String): Flow<Product>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertProducts(products: List<Product>)
 
 }

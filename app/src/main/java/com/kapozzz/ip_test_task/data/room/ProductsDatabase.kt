@@ -9,7 +9,7 @@ import com.kapozzz.ip_test_task.domain.models.Product
 const val PRODUCTS_DATABASE_NAME = "products_database"
 private const val PRODUCTS_DATABASE_VERSION = 1
 
-@Database(entities = [Product::class], version = PRODUCTS_DATABASE_VERSION)
+@Database(entities = [Product::class], version = PRODUCTS_DATABASE_VERSION, exportSchema = false)
 @TypeConverters(ProductsTypeConverter::class)
 abstract class ProductsDatabase : RoomDatabase() {
     abstract fun userDao(): ProductsDao

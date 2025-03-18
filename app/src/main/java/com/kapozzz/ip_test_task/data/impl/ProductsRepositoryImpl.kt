@@ -16,4 +16,6 @@ class ProductsRepositoryImpl @Inject constructor(
 
     override suspend fun getProductByTitle(title: String): Flow<Product> = productsDao.getProductByTitle(title)
 
+    override suspend fun insertProducts(products: List<Product>) = productsDao.insertProducts(products)
+
 }
