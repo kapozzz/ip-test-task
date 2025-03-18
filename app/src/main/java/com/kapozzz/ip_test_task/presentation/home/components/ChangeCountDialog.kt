@@ -1,12 +1,16 @@
 package com.kapozzz.ip_test_task.presentation.home.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -37,7 +41,16 @@ fun ChangeCountDialog(
         onDismissRequest = { onDismiss() },
         containerColor = MaterialTheme.colorScheme.background,
         modifier = modifier,
-        title = { Text(text = stringResource(R.string.home_counter_title)) },
+        title = {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                Icon(imageVector = Icons.Default.Settings, contentDescription = null)
+                Text(text = stringResource(R.string.home_counter_title))
+            }
+        },
         text = {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -63,7 +76,7 @@ fun ChangeCountDialog(
 
 
                 Button(
-                    onClick = { currentCount.intValue += 1  },
+                    onClick = { currentCount.intValue += 1 },
                     modifier = Modifier.clip(CircleShape)
                 ) {
                     Text(
