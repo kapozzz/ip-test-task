@@ -1,3 +1,2 @@
-## Download:
 
-### [**Android**](https://github.com/kapozzz/ip-test-task/ip-test-task.apk)
+### [**Download**](https://github.com/kapozzz/ip-test-task/raw/refs/heads/main/ip-test-task.apk)
