@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kapozzz.ip_test_task.R
@@ -140,10 +141,12 @@ private fun ProductTitle(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
+            modifier = Modifier.weight(1f),
             text = product.title,
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
             color = MaterialTheme.colorScheme.primary,
-            maxLines = 1
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -173,7 +176,7 @@ private fun ProductCardPreview() {
     IptesttaskTheme {
         ProductCard(product = Product(
             id = "",
-            title = "iPhone 13",
+            title = "iPhone 13sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
             dateOfAddition = java.util.Date(),
             count = 176,
             labels = listOf(
